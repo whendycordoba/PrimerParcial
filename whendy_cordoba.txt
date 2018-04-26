@@ -1,0 +1,59 @@
+
+ CREATE TABLESPACE mid_term DATAFILE 'whendy_cordoba.DBF' SIZE 25M ONLINE;
+
+
+ CREATE PROFILE exam LIMIT 
+    IDLE_TIME 10
+    FAILED_LOGIN_ATTEMPTS 4;
+
+ 
+ CREATE USER ejercicios 
+	IDENTIFIED BY ejercicios
+	DEFAULT TABLESPACE mid_term 
+	QUOTA UNLIMITED ON mid_term
+	PROFILE exam;
+    
+
+GRANT CONNECT,DBA TO ejercicios
+
+DROP USER ejercicios CASCADE; 
+DROP TABLESPACE mid_term INCLUDING CONTENTS AND DATAFILES;
+
+*********************
+CREATE OR REPLACE FUNCTION function_1(a NUMBER,b  NUMBER,c NUMBER)
+RETURN VARCHAR2 IS
+y VARCHAR2;
+BEGIN
+
+IF (b>=c) THEN
+y:='"'||a||'/'||a*b||'/'||'andres'||'"';
+ELSE
+y:='"'||a||'/'||a*b||'/'||'martinez'||'"';
+END IF;
+
+RETURN y;
+END;
+
+---------------------------palindrome-----------------------------
+CREATE OR REPLACE FUNCTION function_2(a NUMBER,b  NUMBER,c NUMBER)
+RETURN VARCHAR2 IS
+
+y VARCHAR2;
+BEGIN
+CASE y
+   WHEN 'A' THEN dbms_output.put_line('Excellent');
+   WHEN 'B' THEN dbms_output.put_line('Very Good');
+   WHEN 'C' THEN dbms_output.put_line('Good');
+   WHEN 'D' THEN dbms_output.put_line('Fair');
+   WHEN 'F' THEN dbms_output.put_line('Poor');
+   ELSE dbms_output.put_line('No such grade');
+END CASE;
+
+END;
+
+
+BEGIN
+dbms_output.put_line('El resultado es:' || palindrome (2,3,4));
+END;
+
+
